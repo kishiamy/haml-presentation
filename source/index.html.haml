@@ -3,7 +3,7 @@
   %p It was created by: <strong>Nathan Weizenbaum and Hampton Catlin</strong> in 2006. 
   =link_to "http://www.haml.info", "http://www.haml.info"
 %section  
-  %h3 Pros and cons
+  %h3 pros and cons
   %ul.half_list
     %li + reduced number of lines
     %li + no more tags closing
@@ -13,10 +13,76 @@
     %li - be careful with indentation
     %li - precompile to HTML
 %section
+  %h3 how it works
+  %ul.half_list
+    %li.fragment
+      %h4
+        \%label
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                %html
+                  %head
+    %li.fragment
+      %h4
+        \.class
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                .row
+                  .span4
+    %li.fragment
+      %h4 
+        \#id
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                #notice
+    %li.fragment
+      %h4 
+        {extra attributes}
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                %div{style: "clear:both"} &nbsp;
+  %ul.half_list
+    %li.fragment
+      %h4 
+        \=ruby print
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                = link_to(t(".my_profile"),
+                  profile_path(current_profile)
+    %li.fragment
+      %h4 
+        \-ruby evaluation
+      %code.haml
+        %pre.prettyprint.lang-haml
+          %code.lang-haml
+            = preserve do
+              :escaped
+                -if profile_signed_in?
+                  ...
+
+                -else
+                  ...
+
+%section
   %h3 example
   %section   
     %code.erb
-      %pre.prettyprint.lang-erb
+      %pre.prettyprint.small.lang-erb
         %code.lang-erb
           = preserve do
             :escaped
@@ -36,13 +102,17 @@
                           <div class="span4">
                             <p> 
                               <% if profile_signed_in? %>
-                                <%= link_to(t(".my_profile"), profile_path(current_profile), :class => 'header-btn')%> |
-                                <%= link_to(t(".account"), edit_profile_registration_path, :class => 'header-btn') %> |
-                                <%= link_to(t(".logout"), destroy_profile_session_path, method: :delete, :class => 'header-btn') %>
+                                <%= link_to(t(".my_profile"), profile_path(current_profile), 
+                                  :class => 'header-btn')%> |
+                                <%= link_to(t(".account"), edit_profile_registration_path, 
+                                  :class => 'header-btn') %> |
+                                <%= link_to(t(".logout"), destroy_profile_session_path, 
+                                  method: :delete, :class => 'header-btn') %>
                               <% else %>
                                 <%= link_to(t(".signup"), sign_up_path, :class => 'header-btn') %> 
                                 |
-                                <%= link_to(t(".login"), new_profile_session_path, :class => 'header-btn') %>
+                                <%= link_to(t(".login"), new_profile_session_path, 
+                                  :class => 'header-btn') %>
                               <% end %>
                               <% if admin?(current_profile) %>
                                 <%= link_to "admin", admin_root_path %>
@@ -68,7 +138,7 @@
                   </body>
                 </html>
     %code.haml
-      %pre.prettyprint.lang-haml
+      %pre.prettyprint.small.lang-haml
         %code.lang-haml
           = preserve do
             :escaped
@@ -87,15 +157,19 @@
                           .span4
                             %p 
                               -if profile_signed_in?
-                                = link_to(t(".my_profile"), profile_path(current_profile), :class => 'header-btn') 
+                                = link_to(t(".my_profile"), profile_path(current_profile), 
+                                  :class => 'header-btn') 
                                 |
-                                = link_to(t(".account"), edit_profile_registration_path, :class => 'header-btn')
+                                = link_to(t(".account"), edit_profile_registration_path, 
+                                  :class => 'header-btn')
                                 |
-                                = link_to(t(".logout"), destroy_profile_session_path, method: :delete, :class => 'header-btn')
+                                = link_to(t(".logout"), destroy_profile_session_path, 
+                                  method: :delete, :class => 'header-btn')
                               -else
                                 = link_to(t(".signup"), sign_up_path, :class => 'header-btn')
                                 |
-                                = link_to(t(".login"), new_profile_session_path, :class => 'header-btn')
+                                = link_to(t(".login"), new_profile_session_path, 
+                                  :class => 'header-btn')
                               -if admin?(current_profile)
                                 = link_to "admin", admin_root_path
 
@@ -107,4 +181,17 @@
                       %p#alert= alert
 
                     = yield
-
+    %table.pretty_table
+      %tr 
+        %th
+          Number of lines
+      %tr 
+        %td
+          ERB: 
+        %td
+          51
+      %tr
+        %td
+          HAML:
+        %td
+          39
