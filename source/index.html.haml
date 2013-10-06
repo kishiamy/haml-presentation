@@ -1,0 +1,110 @@
+%section
+  =image_tag "http://upload.wikimedia.org/wikipedia/commons/3/3b/Haml_1-5_logo.png"
+  %p It was created by: <strong>Nathan Weizenbaum and Hampton Catlin</strong> in 2006. 
+  =link_to "http://www.haml.info", "http://www.haml.info"
+%section  
+  %h3 Pros and cons
+  %ul.half_list
+    %li + reduced number of lines
+    %li + no more tags closing
+    %li + support for ruby 
+    %li + DRY 
+  %ul.half_list
+    %li - be careful with indentation
+    %li - precompile to HTML
+%section
+  %h3 example
+  %section   
+    %code.erb
+      %pre.prettyprint.lang-erb
+        %code.lang-erb
+          = preserve do
+            :escaped
+              <!DOCTYPE html>
+                <html>
+                  <head>
+                    <title><%= t ".title" %></title>
+                    <%= stylesheet_link_tag    "application",  :media => "all" %>
+                    <%= javascript_include_tag 'application' %>
+                    <%= csrf_meta_tags %>
+                  </head>
+                  <body>
+                    <header id="top">
+                      <%= link_to t(".title"), root_path, :id => "logo" %>
+                      <div class="right">
+                        <div class="row">
+                          <div class="span4">
+                            <p> 
+                              <% if profile_signed_in? %>
+                                <%= link_to(t(".my_profile"), profile_path(current_profile), :class => 'header-btn')%> |
+                                <%= link_to(t(".account"), edit_profile_registration_path, :class => 'header-btn') %> |
+                                <%= link_to(t(".logout"), destroy_profile_session_path, method: :delete, :class => 'header-btn') %>
+                              <% else %>
+                                <%= link_to(t(".signup"), sign_up_path, :class => 'header-btn') %> 
+                                |
+                                <%= link_to(t(".login"), new_profile_session_path, :class => 'header-btn') %>
+                              <% end %>
+                              <% if admin?(current_profile) %>
+                                <%= link_to "admin", admin_root_path %>
+                              <% end %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </header>
+
+                    <div style="clear:both">&nbsp;</div>
+
+                    <% if notice %>
+                      <p id="notice"><%= notice %></p>
+                    <% end %>
+
+                    <% if alert %>
+                      <p id="alert"><%= alert %></p>
+                    <% end %>
+
+                    <%= yield %>
+
+                  </body>
+                </html>
+    %code.haml
+      %pre.prettyprint.lang-haml
+        %code.lang-haml
+          = preserve do
+            :escaped
+              !!!
+                %html
+                  %head
+                    %title= t ".title"
+                    = stylesheet_link_tag    "application",  :media => "all" 
+                    = javascript_include_tag 'application' 
+                    = csrf_meta_tags
+                  %body
+                    %header#top
+                      = link_to t(".title"), root_path, :id => "logo"
+                      .right
+                        .row
+                          .span4
+                            %p 
+                              -if profile_signed_in?
+                                = link_to(t(".my_profile"), profile_path(current_profile), :class => 'header-btn') 
+                                |
+                                = link_to(t(".account"), edit_profile_registration_path, :class => 'header-btn')
+                                |
+                                = link_to(t(".logout"), destroy_profile_session_path, method: :delete, :class => 'header-btn')
+                              -else
+                                = link_to(t(".signup"), sign_up_path, :class => 'header-btn')
+                                |
+                                = link_to(t(".login"), new_profile_session_path, :class => 'header-btn')
+                              -if admin?(current_profile)
+                                = link_to "admin", admin_root_path
+
+                    %div{style: "clear:both"} &nbsp;
+
+                    - if notice
+                      %p#notice=notice 
+                    -if alert
+                      %p#alert= alert
+
+                    = yield
+
