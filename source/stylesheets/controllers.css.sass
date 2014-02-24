@@ -1,0 +1,51 @@
+#btn-right, #btn-left, .up-down
+  width: 0px
+  height: 0px
+  border-style: solid
+  cursor: pointer
+  display: -moz-inline-stack
+  display: inline-block
+  vertical-align: middle
+  zoom: 1
+  *display: inline
+
+#btn-right
+  border-width: 100px 0 100px 173.2px
+  border-color: transparent transparent transparent #007bff
+
+#btn-left
+  border-width: 100px 173.2px 100px 0
+  border-color: transparent #007bff transparent transparent
+
+.up-down
+  border: none
+  width: auto
+  height: auto
+  #btn-up
+    margin-bottom: 200px
+    width: 0px
+    height: 0px
+    border-style: solid
+    cursor: pointer
+    border-width: 0 100px 173.2px 100px
+    border-color: transparent transparent #007bff transparent
+    display: block
+
+  #btn-down
+    margin-top: 200px
+    width: 0px
+    height: 0px
+    border-style: solid
+    cursor: pointer
+    vertical-align: bottom
+    border-width: 173.2px 100px 0 100px
+    border-color: #007bff transparent transparent transparent
+    display: block
+
+.controllers-body
+  text-align: center
+  background: grey
+  height: 100%
+  width: 100%
+  .controllers
+    margin-top: 60px
